@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cumpleaños de Vanesa Mendoza | Invitación Digital</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,700;1,500&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Librerías de Iconos Públicos y Gratuitos (FontAwesome + Lucide + Bootstrap Icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Three.js CDN para animación 3D de partículas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    
+    <!-- GSAP & ScrollTrigger CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Estilos personalizados -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Contenedor Three.js de Fondo Dinámico -->
+    <div id="webgl-container"></div>
+
+    <!-- Componente Visual de Recorrido Simplificado (Barra de progreso con círculos interactivos) -->
+    <nav class="journey-progress-bar" id="journey-progress-bar" aria-label="Progreso de secciones">
+        <div class="journey-dots-nav">
+            <a href="#bienvenida" class="j-dot active" title="Bienvenida" data-index="0"><span class="j-tooltip">Bienvenida</span></a>
+            <a href="#invitacion" class="j-dot" title="Dedicatoria" data-index="1"><span class="j-tooltip">Dedicatoria</span></a>
+            <a href="#cuenta-regresiva" class="j-dot" title="Cuenta Regresiva" data-index="2"><span class="j-tooltip">Cuenta Regresiva</span></a>
+            <a href="#detalles" class="j-dot" title="Detalles" data-index="3"><span class="j-tooltip">Detalles</span></a>
+            <a href="#recomendaciones" class="j-dot" title="Recomendaciones" data-index="4"><span class="j-tooltip">Recomendaciones</span></a>
+            <a href="#rsvp" class="j-dot" title="Confirmación" data-index="5"><span class="j-tooltip">Confirmación</span></a>
+        </div>
+    </nav>
+
+    <!-- Criaturas marinas auténticas nadando de fondo (5 distintas: Pez, Estrella, Medusa, Cangrejo, Ballena) -->
+    <div class="marine-creatures-layer" aria-hidden="true">
+        <!-- 1. Pez tropical -->
+        <div class="marine-creature creature-1">
+            <i class="fa-solid fa-fish-fins"></i>
+        </div>
+        <!-- 2. Estrella de mar -->
+        <div class="marine-creature creature-2">
+            <svg viewBox="0 0 64 64" width="44" height="44" fill="currentColor">
+                <path d="M32 4l8.2 17.5L59.5 24l-14 13.4 3.5 19.1L32 47.2 15 56.5l3.5-19.1-14-13.4 19.3-2.5z"/>
+            </svg>
+        </div>
+        <!-- 3. Medusa -->
+        <div class="marine-creature creature-3">
+            <svg viewBox="0 0 64 64" width="48" height="48" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+                <path d="M14 28c0-10 8-18 18-18s18 8 18 18H14z" fill="currentColor" fill-opacity="0.35"/>
+                <path d="M20 28c-2 8 2 14-1 22M28 28c1 9-2 16 1 24M36 28c-1 9 2 16-1 24M44 28c2 8-2 14 1 22"/>
+            </svg>
+        </div>
+        <!-- 4. Cangrejo -->
+        <div class="marine-creature creature-4">
+            <svg viewBox="0 0 64 64" width="46" height="46" fill="currentColor">
+                <ellipse cx="32" cy="36" rx="14" ry="10"/>
+                <path d="M18 32c-6-4-8-10-4-14 3 3 5 6 4 10M46 32c6-4 8-10 4-14-3 3-5 6-4 10" stroke="currentColor" stroke-width="3" fill="none"/>
+                <path d="M20 40l-8 6M22 44l-6 8M44 40l8 6M42 44l6 8" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+                <circle cx="27" cy="25" r="2"/><circle cx="37" cy="25" r="2"/>
+            </svg>
+        </div>
+        <!-- 5. Ballena (SVG completo con chorro de agua y aletas) -->
+        <div class="marine-creature creature-5">
+            <svg viewBox="0 0 96 64" width="68" height="46" fill="currentColor">
+                <!-- Chorro de agua -->
+                <path d="M62 16c0-5-4-8-8-8M62 16c0-5 4-8 8-8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>
+                <!-- Cuerpo y cola de la ballena -->
+                <path d="M84 36c0 11-12 18-32 18-16 0-28-6-35-14l-9 6c-2 1-4-1-3-3l5-9-5-9c-1-2 1-4 3-3l9 6c7-8 19-12 35-12 20 0 32 8 32 20z"/>
+                <!-- Aleta ventral -->
+                <path d="M46 47c-4 6-10 8-13 6 2-4 5-7 8-8z" fill-opacity="0.85"/>
+                <!-- Ojo -->
+                <circle cx="71" cy="35" r="2.3" fill="#FFFFFF"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         1. SECCIÓN: HERO (BIENVENIDA)
+         ====================================================================== -->
+    <header id="bienvenida" class="hero full-screen-section" data-title="Bienvenida">
+        <span class="hero-badge">Estás cordialmente invitado</span>
+        <h1 class="hero-title">Vanesa Mendoza</h1>
+        <p class="hero-subtitle">
+            "Como las olas que abrazan la orilla, celebro un año más de vida rodeada de quienes llenan mi mundo de luz."
+        </p>
+        <a href="#invitacion" class="btn-open">
+            <i class="fa-regular fa-envelope-open"></i> Abrir Invitación
+        </a>
+    </header>
+
+    <!-- ======================================================================
+         2. SECCIÓN: DEDICATORIA
+         ====================================================================== -->
+    <section id="invitacion" class="full-screen-section" data-title="Dedicatoria">
+        <div class="container-inner">
+            <div class="quote-card">
+                <div class="section-icon"><i class="fa-solid fa-water"></i></div>
+                <p class="quote-text">
+                    "Hay momentos en la vida que merecen ser celebrados con el alma. Este 29 de noviembre quiero brindar por los recuerdos compartidos, la alegría del presente y las nuevas mareas que están por venir. ¡Tu presencia hará esta tarde inolvidable!"
+                </p>
+                <div class="section-divider"></div>
+                <span class="quote-author">Con cariño, Vanesa</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         3. SECCIÓN: CUENTA REGRESIVA
+         ====================================================================== -->
+    <section id="cuenta-regresiva" class="countdown-section full-screen-section" data-title="Cuenta Regresiva">
+        <div class="container-inner">
+            <p style="text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; opacity: 0.9;">Falta muy poco</p>
+            <h2 class="section-title" style="color: var(--color-blanco);">Cuenta Regresiva</h2>
+            <div class="section-divider"></div>
+            
+            <div class="countdown-grid" id="countdown">
+                <div class="time-box">
+                    <span class="time-number" id="days">00</span>
+                    <span class="time-label">Días</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-number" id="hours">00</span>
+                    <span class="time-label">Horas</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-number" id="minutes">00</span>
+                    <span class="time-label">Minutos</span>
+                </div>
+                <div class="time-box">
+                    <span class="time-number" id="seconds">00</span>
+                    <span class="time-label">Segundos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         4. SECCIÓN: DETALLES DE LA CELEBRACIÓN (CARRUSEL)
+         ====================================================================== -->
+    <section id="detalles" class="full-screen-section" data-title="Detalles">
+        <div class="container-inner">
+            <div class="section-header">
+                <div class="section-icon"><i class="fa-solid fa-compass"></i></div>
+                <h2 class="section-title">Detalles de la Celebración</h2>
+                <div class="section-divider"></div>
+                <p style="color: var(--color-texto-suave);">Acompáñame a disfrutar de una tarde inolvidable</p>
+            </div>
+
+            <!-- Carrusel de Detalles -->
+            <div class="carousel-container">
+                <div class="carousel-track" id="details-track">
+                    <!-- Slide 1: Cuándo -->
+                    <div class="carousel-slide">
+                        <div>
+                            <div class="card-icon-circle"><i class="fa-regular fa-calendar-check"></i></div>
+                            <h3 class="card-title">¿Cuándo?</h3>
+                            <div class="card-info">
+                                <strong>Sábado, 29 de Noviembre</strong>
+                                <span>Hora: 14:00 PM (2:00 PM)</span>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Cumplea%C3%B1os+de+Vanesa+Mendoza&dates=20261129T180000Z/20261129T230000Z&location=Amelia+Urban+Studios" 
+                               target="_blank" rel="noopener noreferrer" class="btn-action btn-outline">
+                                <i class="fa-regular fa-calendar-plus"></i> Agendar Fecha
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Dónde (Google Maps, Yango e InDrive para Cochabamba) -->
+                    <div class="carousel-slide">
+                        <div>
+                            <div class="card-icon-circle"><i class="fa-solid fa-location-dot"></i></div>
+                            <h3 class="card-title">¿Dónde?</h3>
+                            <div class="card-info">
+                                <strong>Amelia Urban Studios</strong>
+                                <span>Cochabamba, Bolivia</span>
+                            </div>
+                        </div>
+                        <div class="btn-group">
+                            <a href="https://maps.app.goo.gl/JxJEERZigZtEoxUZA" 
+                               target="_blank" rel="noopener noreferrer" class="btn-action btn-primary">
+                                <i class="fa-solid fa-map-location-dot"></i> Google Maps
+                            </a>
+                            <a href="https://r.yango.com/?lat=-17.3895&lon=-66.1568&address=Amelia+Urban+Studios" 
+                               target="_blank" rel="noopener noreferrer" class="btn-action btn-outline" style="border-color: #fc3f1d; color: #fc3f1d;">
+                                <i class="fa-solid fa-taxi"></i> Yango
+                            </a>
+                            <a href="https://indrive.com/" 
+                               target="_blank" rel="noopener noreferrer" class="btn-action btn-outline" style="border-color: #07c160; color: #07c160;">
+                                <i class="fa-solid fa-car"></i> InDrive
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles del Carrusel -->
+                <div class="carousel-nav">
+                    <button class="carousel-btn" id="prev-slide" aria-label="Anterior"><i class="fa-solid fa-chevron-left"></i></button>
+                    <div class="carousel-dots">
+                        <span class="c-dot active" data-slide="0"></span>
+                        <span class="c-dot" data-slide="1"></span>
+                    </div>
+                    <button class="carousel-btn" id="next-slide" aria-label="Siguiente"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         5. NUEVA SECCIÓN: RECOMENDACIONES IMPORTANTES (CARRUSEL + TARJETAS)
+         ====================================================================== -->
+    <section id="recomendaciones" class="full-screen-section recommendations-section" data-title="Recomendaciones">
+        <div class="container-inner">
+            <div class="section-header">
+                <div class="section-icon"><i class="fa-solid fa-circle-info"></i></div>
+                <h2 class="section-title">Recomendaciones Importantes</h2>
+                <div class="section-divider"></div>
+                <p style="color: var(--color-texto-suave);">Ten en cuenta estos detalles para disfrutar al máximo</p>
+            </div>
+
+            <!-- Dos tarjetas lado a lado en escritorio / carrusel adaptable en móvil -->
+            <div class="recommendations-grid" id="recommendations-grid">
+                <!-- Recomendación 1: Piscina -->
+                <div class="rec-card">
+                    <div class="card-icon-circle rec-icon-pool">
+                        <i class="fa-solid fa-person-swimming"></i>
+                    </div>
+                    <h3 class="card-title">¡Tendremos Piscina!</h3>
+                    <p class="rec-desc">
+                        Habrá una piscina disponible durante la celebración para hombres y mujeres. Te recomendamos traer:
+                    </p>
+                    <ul class="rec-checklist">
+                        <li>
+                            <span class="rec-badge-icon"><i class="bi bi-tsunami"></i></span>
+                            <span>Traje de baño o ropa de piscina</span>
+                        </li>
+                        <li>
+                            <span class="rec-badge-icon"><i class="fa-solid fa-rug"></i></span>
+                            <span>Toalla personal y ropa de cambio</span>
+                        </li>
+                        <li>
+                            <span class="rec-badge-icon"><i class="fa-solid fa-shoe-prints"></i></span>
+                            <span>Sandalias o chanclas cómodas</span>
+                        </li>
+                        <li>
+                            <span class="rec-badge-icon"><i class="fa-solid fa-sun"></i></span>
+                            <span>Bloqueador solar y lentes de sol</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Recomendación 2: Para compartir -->
+                <div class="rec-card">
+                    <div class="card-icon-circle rec-icon-share">
+                        <i class="fa-solid fa-champagne-glasses"></i>
+                    </div>
+                    <h3 class="card-title">Algo para Compartir</h3>
+                    <p class="rec-desc">
+                        Para hacer aún más rica la convivencia entre todos, te invitamos a traer algo para compartir en la mesa:
+                    </p>
+                    <ul class="rec-checklist">
+                        <li>
+                            <span class="rec-badge-icon"><i class="fa-solid fa-martini-glass-citrus"></i></span>
+                            <span>Tu bebida favorita (refrescos, jugos o tragos)</span>
+                        </li>
+                        <li>
+                            <span class="rec-badge-icon"><i class="fa-solid fa-bowl-food"></i></span>
+                            <span>Alguna botana, piqueo o snack</span>
+                        </li>
+                        <li>
+                            <span class="rec-badge-icon"><i class="fa-solid fa-face-laugh-beam"></i></span>
+                            <span>¡Muchas ganas de pasarla increíble!</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======================================================================
+         6. SECCIÓN: CONFIRMACIÓN RSVP (CON MODAL DE DATOS)
+         ====================================================================== -->
+    <section id="rsvp" class="full-screen-section" data-title="Confirmación">
+        <div class="container-inner">
+            <div class="rsvp-box">
+                <div class="section-icon"><i class="fa-solid fa-anchor"></i></div>
+                <h2 class="section-title">Confirma tu Asistencia</h2>
+                <div class="section-divider"></div>
+                <p style="color: var(--color-texto-suave); max-width: 550px; margin: 1rem auto 0; font-size: 1rem;">
+                    Por favor confírmame tu asistencia antes del <strong>25 de noviembre</strong> para preparar todo con mucho cariño.
+                </p>
+
+                <button type="button" id="open-rsvp-modal" class="btn-whatsapp">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 1.4rem;"></i>
+                    Confirmar por WhatsApp
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MODAL DE CONFIRMACIÓN -->
+    <div class="rsvp-modal-overlay" id="rsvp-modal-overlay" aria-hidden="true">
+        <div class="rsvp-modal" role="dialog" aria-modal="true" aria-labelledby="rsvp-modal-title">
+            <button type="button" class="rsvp-modal-close" id="close-rsvp-modal" aria-label="Cerrar">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="section-icon" style="margin-bottom: 0.4rem;">
+                <i class="fa-brands fa-whatsapp" style="color: #25D366;"></i>
+            </div>
+            <h3 id="rsvp-modal-title" class="card-title" style="margin-bottom: 0.4rem;">Confirmacion</h3>
+            <p style="font-size: 0.9rem; color: var(--color-texto-suave); margin-bottom: 1.4rem;">
+                Completa los datos para generar tu mensaje de confirmación:
+            </p>
+
+            <form id="rsvp-form" class="rsvp-form">
+                <div class="form-group">
+                    <label for="guest-count">
+                        <i class="fa-solid fa-users"></i> Cantidad de personas confirmadas
+                    </label>
+                    <input type="number" id="guest-count" name="guestCount" min="1" max="20" value="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="guest-names-container">
+                        <i class="fa-solid fa-user-pen"></i> Nombre de las personas
+                    </label>
+                    <div id="guest-names-container" class="guest-names-list">
+                        <input type="text" class="guest-name-input" placeholder="Nombre de la persona 1" required>
+                    </div>
+                </div>
+
+                <div class="rsvp-preview-box">
+                    <span class="preview-label"><i class="fa-regular fa-eye"></i> Vista previa del mensaje:</span>
+                    <pre id="rsvp-message-preview"></pre>
+                </div>
+
+                <button type="submit" class="btn-whatsapp" style="width: 100%; margin-top: 1rem;">
+                    <i class="fa-brands fa-whatsapp" style="font-size: 1.3rem;"></i>
+                    Enviar Confirmación
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ======================================================================
+         7. PIE DE PÁGINA (CON IMAGEN DE FONDO assets/fondo-1.webp)
+         ====================================================================== -->
+    <footer class="full-screen-section footer-marine" data-title="Final">
+        <div class="footer-content-card">
+            <p class="footer-name">Vanesa Mendoza</p>
+            <p class="footer-text">¡Gracias por ser parte de mi historia y celebrar este día tan especial conmigo!</p>
+            <div style="font-size: 1.4rem; color: var(--color-turquesa-suave);">
+                <i class="fa-solid fa-water"></i>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lógica de la aplicación -->
+    <script src="main.js"></script>
+</body>
+</html>
