@@ -930,3 +930,27 @@ footer.footer-marine {
     color: var(--color-texto-oscuro);
     font-weight: 500;
 }
+
+/* Botón principal de ubicación: más visible y cómodo en móviles */
+.btn-map-link {
+    width: min(100%, 340px);
+    min-height: 58px;
+    padding: 1rem 1.8rem;
+    font-size: 0.95rem;
+    letter-spacing: 0.4px;
+    gap: 10px;
+}
+
+.btn-map-link i {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 480px) {
+    .btn-map-link {
+        width: 100%;
+        max-width: 340px;
+        min-height: 60px;
+        padding: 1rem 1.25rem;
+        font-size: 0.9rem;
+    }
+}

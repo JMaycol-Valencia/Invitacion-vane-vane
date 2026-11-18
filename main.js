@@ -186,7 +186,7 @@ function buildFormattedMessage() {
     return [
         `Hola gracias por invitarme confirmamos ${count}`,
         ...lines
-    ].join('\\n');
+    ].join("\n");
 }
 
 function updateMessagePreview() {
@@ -231,18 +231,7 @@ if (guestCountInput) {
 if (rsvpForm) {
     rsvpForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const count = Math.max(1, parseInt(guestCountInput ? guestCountInput.value : 1, 10) || 1);
-        const nameInputs = guestNamesContainer ? Array.from(guestNamesContainer.querySelectorAll('.guest-name-input')) : [];
-        const lines = nameInputs.map((inp, idx) => {
-            const val = inp.value.trim() || `Persona ${idx + 1}`;
-            return `-${val}`;
-        });
-
-        const finalMessage = [
-            `Hola gracias por invitarme confirmamos ${count}`,
-            ...lines
-        ].join('\\n');
-
+        const finalMessage = buildFormattedMessage();
         const encodedText = encodeURIComponent(finalMessage);
         const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedText}`;
         window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
